@@ -1,0 +1,40 @@
+<style>
+.btns
+{
+  color: #fff;
+    background: #333;
+    border-radius: 0px;
+}
+</style>
+<div class="container">
+    <div class="row">
+
+
+
+<div id="Container" class="container">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+        <button type="button" class="btn btn-primary  btn-block heading">Register</button>
+<form class="form" name="myFormType" ng-submit="RegisterUser()">
+            <input placeholder="First Name" ng-model="User.FirstName" type="text" class="form-control" style="margin-top: 10px;" required/>
+            <input placeholder="Last Name" type="text" ng-model="User.LastName" class="form-control" required/>
+
+            <input placeholder="Email Address" ng-model="User.Email" type="text" class="form-control" required />
+            <input placeholder="Mobile Number" ng-model="User.MobileNumber" type="text" class="form-control" required/>
+            <input placeholder="Password" ng-model="User.Password" type="password" class="form-control" required/>
+
+            <div style="
+    margin-left: 28%;
+    margin-bottom: 5%;
+">
+
+            <button  type="submit" ng-disabled="myFormType.$invalid" class="btn btn-primary">Submit</button>
+      
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>
+
+
+</div></div>

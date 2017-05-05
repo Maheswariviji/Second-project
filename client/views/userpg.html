@@ -1,0 +1,361 @@
+<style>
+#myMap
+{
+      width: auto;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2%;
+}
+.book_btn a {
+    background: #222;
+    color: #fff;
+    padding: 10px 30px;
+    margin-top: 10%;
+}
+.heading
+{
+  width: 45%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    margin-left: 27%;
+    font-size: xx-large;
+}
+.tablestyle
+{
+  border-style: hidden;
+}
+
+.tdclass
+{
+  font-weight: 700;
+    padding-bottom: 15px;
+  /* width: 2%*/;
+   padding: 0px 0px 0px 50%;
+}
+.th
+{
+  padding-bottom: 15px;
+  width: 40%;
+}
+._jw-tpk-container
+{
+      margin-bottom: -38%;
+}
+.rowt
+{
+border-bottom: 1px solid #000;
+}
+.headt{
+   width: 27% !important;
+}
+.td1
+{
+
+    padding: 4px;
+}
+.th1
+{
+
+    padding: 4px;
+}
+</style>
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+  <div class="row"><span class="glyphicon glyphicon-user"> <p>Hello!!! <span class="lead" id="username"> </span></p></span>
+                         <a ng-click="Logout()" style="    float: right;
+    margin-top: 1%;color: #222;"><span class="glyphicon glyphicon-off"><br>Logout</span> <br/></a></div>
+    <div class="col-md-10">
+  <div id="myMap">
+</div></div>
+<div class="col-md-2">
+  <a class="btn btn-primary btn-lg" ng-click="modal1()" role="button"><span class="glyphicon glyphicon-ok"></span> <br/>Book Now</a><br></br></br>
+<a ng-click="modal2()" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-share"></span> <br/>Book Later</a><br></br></br>
+<a  ng-click="modal3()" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-list"></span> <br/>Last Trip</a></br></br>
+
+</div>
+</div>
+</div>
+
+</div>
+<div style="display:none;">
+ lat:<input  class="form-control" type="text" id="latitude"/>
+long:<input  class="form-control" id="longitude" type="text" />
+</div>
+<!-- Now -->
+<div ng-show="now" style="margin-left: 30%;">
+<table>
+             <tbody>
+             <h3 class="btn btn-primary btn-block heading" style="        margin-left: 16%;
+    margin-bottom: 3%;    width: 30%;">Ride Now</h3>
+    <tr>
+    <th>Booking ID</th><td>
+<input class="form-control" id="randomnumber" style="    margin-bottom: 10px;" />
+    </tr>
+               <tr>
+
+                 <th>Your Location :</th>
+                 <td> <input id="address" class="form-control" type="text" style="    width: 492px;" required/></input>
+
+      </td>
+               </tr>
+               <tr>
+                 <th>Destination:</th>
+                 <td><input class="autocomplete form-control" id="ac1"  type="text" style="    width: 492px;" required></input>
+</td>
+               </tr>
+               <tr>
+               <th>Select CarType:
+               </th>
+               <td><select class="form-control" id="cab1" ng-model="bill.cabType"  ng-change="type()" ng-init="cabType=0" style="    width: 492px;" required>
+ <option class="form-control" ng-repeat="car in carlist" ng-value="car.carType">{{car.carType}}</option>
+            </select>
+               </td>
+               </tr>
+               <tr>
+<th>Trip Type:</th>
+<td> <input type="radio"   ng-model="tripType"  Name="triptype"  value="Round Trip">Round Trip
+        <input type="radio"   ng-model="bill.tripType"  Name="triptype"  value="One Way">One Way</td>
+               </tr>
+
+               <tr>
+<th></th>
+               <td><button class="btn btn-primary" style="    margin-left: 32%;
+    margin-top: 13px;" ng-click="Now()">Book</button></td>
+               </tr>
+
+             </tbody>
+           </table>
+         </div>
+           <div ng-show="Details" class="row" style="padding: 22px;margin-left: 38%;" >
+               <label class="btn btn-primary btn-circle btn-xl"><span class="lead">Duration</span></br><i  class="glyphicon glyphicon-time"></br></i></br><span id="duration"></span></label>
+
+              <label class="btn btn-primary btn-circle btn-xl"> <span class="lead">Distance</span></br><i  class="glyphicon glyphicon-road"></br></i></br><span id="dis"></span></label>
+              <label class="btn btn-primary btn-circle btn-xl"> <span class="lead">Fare in ₹</span></br><i  class="glyphicon glyphicon-thumbs-up"></br></i></br><span id="fare"></span></label>
+              </br>
+              <button ng-click="confirm()" style="    margin-left: 16%;
+    margin-top: 16px;" class="btn btn-success">Accept</button>
+               </div>
+
+<!-- later -->
+<div ng-show="later">
+<div class="row">
+
+<div class="col-md-12">
+ <button type="button" class="btn btn-primary btn-lg btn-block heading">Book A Cab</button>
+      <div class="col-md-1"></div>
+ <div class="col-md-5">
+        <table class="table">
+            <tbody>
+            <tr class="tablestyle">
+<th>Booking ID</th><td>
+<input class="form-control" id="randomnumber1"/>
+</td>
+</tr>
+    <tr class="tablestyle">
+        <th>Choose City</th><td><select class="form-control" ng-model="bking.city" >
+  <option ng-repeat="city in citylist" ng-value="city.cityName">{{city.cityName}}</option>
+   </select></td>
+    </tr>
+    <tr class="tablestyle">
+        <th>Choose CabType</th><td><select class="form-control" id="cab1"  ng-model="bking.cabType" >
+    <option ng-repeat="mapped in mappedlist | filter: bking.city | unique :'carType'" ng-value="mapped.carType">{{mapped.carType}}</option>
+            </select></td>
+    </tr>
+    <tr class="tablestyle">
+       <th>Pickup Locality/Area</th>
+            <td><input ng-model="bking.pickupLoc" class="autocomplete form-control" id="ac1"  type="text"></input> </td>
+    </tr>
+    <tr class="tablestyle">
+   <th>Drop Locality/Area</th>
+            <td><input ng-model="bking.dropLoc" class="autocomplete form-control" id="ac2"  type="text"></input> </td>
+    </tr>
+    <tr class="tablestyle">
+    <th>Time</th>
+    <td>
+    <input class="form-control" type="text" id="nowtime" placeholder="Time" />
+    </td></tr>
+<tr class="tablestyle"><th>Trip Type</th><td>
+       <input  type="radio" ng-model="bking.tripType"  ng-change="get()"  Name="triptype"  value="Round Trip">Round Trip
+
+        <input type="radio" ng-model="bking.tripType"  ng-change="get()" Name="triptype"  value="One Way">One Way
+     </td></tr>
+
+    <tr class="tablestyle">
+    <th>Pickup Date</th>
+    <td>
+    <input type="text" class="form-control" ng-blur="checkDate" id="dt" ng-model="bking.Date" jqdatepicker />
+    </td>
+    </tr>
+
+
+<tr class="tablestyle">
+<td>
+<button style="    margin-left: 206%;"  ng-click="add()" class="btn btn-primary" >Submit</button>
+</td>
+</tr>
+</tbody>
+</table>
+        </div>
+        <div class="col-md-5" ng-show="details1">
+           <table >
+           <tbody>
+<tr class="tablestyle" >
+                 <th class="th">Name</th><td  class="tdclass" id="cname"></td><td style="
+    width: 7%;font-weight: 700;"></td></tr>
+     <tr class="tablestyle" >
+                 <th class="th">Contact #</th><td  class="tdclass" id="custno"></td><td style="
+    width: 7%;font-weight: 700;"></td></tr>
+<th class="th">Email ID</th><td  class="tdclass" id="custid"></td><td style="
+    width: 7%;font-weight: 700;"></td></tr>
+
+
+                  <tr class="tablestyle">
+                  <th class="th">Distance in Kms</th><td class="tdclass" id="distance"></td><td style="
+    width: 7%;font-weight: 700;"></td></tr>
+
+     <tr class="tablestyle">
+   <th class="th">Driving Time in Min</th><td class="tdclass" id="dtime"></td><td style="
+    width: 7%;font-weight: 700;">
+                  </td></tr>
+                  <tr class="tablestyle">
+    <th class="th">Approximate Taxi Fare in ₹</th><td class="tdclass" id="appfare"></td><td style="
+    width: 7%;font-weight: 700;"></td></tr>
+
+           </tbody>
+           </table>
+        </div>
+        <div class="col-md-1"></div>
+        </div>
+</div>
+</div>
+</div>
+
+<div ng-show="history">
+<div class="row">
+<div class="col-md-12">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+<h3 style="text-align: center;">Completed Trip</h3>
+
+<table>
+<tbody>
+<tr>
+<th class="th1">Booking ID</th>
+<th class="th1">Pickup Loc</th>
+<th class="th1">Drop Loc</th>
+<th class="th1">Date</th>
+<th class="th1">Driver Name</th>
+<th class="th1">Car Number</th>
+<th class="th1">Amount</th>
+</tr>
+</hr>
+<tr ng-repeat="farelist in val">
+<td class="td1">{{farelist.bookingID}}</td>
+<td class="td1">{{farelist.pickupLoc}}</td>
+<td class="td1">{{farelist.dropLoc}}</td>
+<td class="td1">{{farelist.Date}}</td>
+<td class="td1">{{farelist.DriverName}}</td>
+<td class="td1">{{farelist.carNo}}</td>
+<td class="td1">{{farelist.Amount}}</td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+  <div id="my" class="modal" style="width: 50%;
+margin-top: 9%;
+margin-left: 27%;">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+  <div class="modal-header">
+  <button type="button" class="close" id="cle">&times;</button>
+          <h4 class="modal-title">Booking Details</h4>
+        </div>
+
+     <div class="modal-body">
+   <table >
+     <tbody>
+
+       <tr class="rowt">
+         <th class="headt">
+Booking ID
+         </th>
+         <td id="bkid">
+
+         </td>
+       </tr>
+       <tr class="rowt">
+         <th class="headt">
+Driver Name
+         </th>
+         <td id="name">
+
+         </td>
+       </tr>
+       <tr class="rowt">
+
+         <th class="headt">
+Contact Phone
+         </th>
+         <td id="no">
+         </td>
+       </tr>
+        <tr class="rowt">
+
+       <tr class="rowt">
+         <th class="headt">
+PickUp Location
+         </th>
+         <td id="pick">
+
+         </td>
+       </tr>
+       <tr class="rowt">
+         <th class="headt">
+Drop Location
+         </th>
+         <td id="Drop">
+
+         </td>
+       </tr>
+       <tr class="rowt">
+         <th class="headt">
+Amount in ₹
+         </th>
+         <td id="amt"></td>
+       </tr>
+       <tr class="rowt">
+         <th class="headt">
+Car Name
+         </th>
+         <td id="cname1"></td>
+       </tr>
+       <tr class="rowt">
+         <th class="headt">
+Car Number
+         </th>
+         <td id="cno"></td>
+       </tr>
+     </tbody>
+   </table>
+   </div>
+   <div class="modal-footer">
+          <button type="button" ng-click="submit()" class="btn btn-success" >OK</button>
+        </div>
+  </div>
+
+</div>

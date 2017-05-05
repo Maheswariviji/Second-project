@@ -1,0 +1,438 @@
+<head>
+
+<style>
+.tdclass
+{
+      padding: 10px;
+}
+.modal-content
+{
+   position: absolute !important;
+    margin-left: -37%;
+}
+.panel-body .btn:not(.btn-block) { width:320px;margin-bottom:10px; }
+.align
+{
+        margin-left: 14%;
+    margin-top: 2%;
+}
+.panel-title
+{
+        margin-left: 38%;
+}
+.mybtn
+       {
+        background-color: #222;
+        color: white;
+        }
+        .tablestyle
+{
+  border-style: hidden;
+}
+.form-control1 {
+    display: block;
+    width: 100%;
+    height: 34px;
+     padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.td1
+{
+
+    padding: 4px;
+}
+.th1
+{
+
+    padding: 4px;
+}
+
+</style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+      <div class="col-md-1"></div>
+
+        <div class="col-md-10">
+            <div class="panel panel-mybtn">
+                <div class="panel-heading">
+
+                        <span class="glyphicon glyphicon-user"> <p>Hello!!! <span class="lead" id="username"> </span></p></span>
+                        <a ng-click="Logout()" style="    float: right;
+    margin-right: -19%;"><span class="glyphicon glyphicon-off"></span> <br/><p style="margin-left: -21%;">Logout</p>
+                        </a>
+                </div>
+                <div class="panel-body align" >
+
+                    <div class="row">
+                        <div >
+                          <a data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-plus"></span> <br/>Add City</a>
+
+                          <a data-toggle="modal" data-target="#myModal2" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-plus"></span> <br/>Add Car Type</a>
+
+
+                        </div>
+                        </div>
+                           <div class="row">
+<a data-toggle="modal" style="margin-left: 21%;" data-target="#Mapping"  class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>View Bills</a>
+                </div>
+                        <div class="row">
+                        <div >
+
+        <a data-toggle="modal"   data-target="#myModal3"  class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Add Driver
+                        </a>
+ <a data-toggle="modal" data-target="#myModal5" class="btn btn-primary btn-lg" role="button">
+ <span class="glyphicon glyphicon-ok-sign"></span> <br/>Assign Driver</a>
+
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>  <div class="col-md-1"></div>
+
+        </div>
+
+<!-- Add City -->
+  <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog modal-lg" style="width:100%;">
+      <div class="modal-content" style="    margin-left: -16%;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add City</h4>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+
+                          <tbody>
+							                  <tr class="tablestyle">
+                  <th>City Name</th><td><input  class="form-control" type="text"  ng-model="city.cityName" /></td></tr>
+
+                 <tr class="tablestyle"><td><button ng-click="addCity()" class="btn btn-primary">Add</button></td>
+                          <td><button ng-click="updateCity()" class="btn btn-primary">Update</button></td></tr>
+
+                 <tr> </tr>         							                <tr>
+                 <th>City ID</th>
+
+                            <th>Car Name</th>
+
+                                  </tr>
+                                  <tr ng-repeat=" city in citylist">
+
+							                    <td>{{city.cityID=$index+1}}</td>
+							                    <td>{{city.cityName}}</td>
+
+							                    <td><button ng-click="removeCity(city)" class="btn btn-danger">Remove</button></td>
+							                    <td><button ng-click="editCity(city)" class="btn btn-primary">Edit</button></td>
+                                  </tr>
+
+							            </tbody>
+							 </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Add CarType -->
+  <div class="modal fade" id="myModal2" role="dialog" >
+    <div class="modal-dialog modal-lg" style="width:100%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Cartype</h4>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+
+                          <tbody>
+                                <tr class="tablestyle">
+                  <th>Car Type</th><td><input  class="form-control" type="text" ng-model="car.carType"/></td></tr>
+                  <tr class="tablestyle">
+                  <th>PeakHour From</th><td>
+      <input class="form-control" type="text"  id="peak1" minlength="1" required>
+    </td>
+    <tr class="tablestyle">
+                  <th>PeakHour To</th><td>
+      <input class="form-control" type="text"  id="peak2"  minlength="1" required>
+        <!-- <input id="input-a" value="" data-default="20:48"> -->
+    </td>
+    <tr class="tablestyle"><th>PeakHour Rate</th><td><input class="form-control" type="text" ng-model="car.peakhrrate"/></td></tr>
+       <tr class="tablestyle"><th>Noraml Rate</th><td><input class="form-control" type="text" ng-model="car.normalrate"/></td></tr>
+
+                 <tr class="tablestyle"><td><button  ng-click="addCar()" class="btn btn-primary">Add</button></td>
+                          <td><button ng-click="updateCar()" class="btn btn-primary">Update</button></td></tr>
+
+                 <tr> </tr>                                       <tr>
+
+
+                            <th>Car  Type</th>
+                            <th>PeakHour From</th>
+                            <th>PeakHour To</th>
+                                  <th>PeakHour Rate</th>
+                                  <th>Normal Rate</th>
+
+                                  </tr>
+                                  <tr ng-repeat=" car in carlist">
+
+                                  <td>{{car.carType}}</td>
+                                  <td>{{car.peakhrfrm}} </td>
+                                  <td>{{car.peakhrto}}</td>
+
+                                   <td>{{car.peakhrrate}}</td>
+                                    <td>{{car.normalrate}}</td>
+
+                                  <td><button ng-click="removeCar(car)" class="btn btn-danger">Remove</button></td>
+                                  <td><button ng-click="editCar(car)" class="btn btn-primary">Edit</button></td>
+                                  </tr>
+
+                          </tbody>
+               </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Driver   style="padding-right: 48%; margin-left: -100%;"-->
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:100%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Driver</h4>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+
+                          <tbody>
+                                <tr class="tablestyle">
+                  <th>Working for which City </th><td><select class="form-control" ng-model="driver.city" >
+                                     <option ng-repeat="city in citylist" ng-value="city.cityName">{{city.cityName}}</option>
+
+                                    </select></td></tr>
+
+
+                  <tr class="tablestyle">
+                  <th>Driver Name</th><td><input  class="form-control" type="text" ng-model="driver.FirstName" id="dnamelog" /></td></tr>
+                <tr class="tablestyle">
+                  <th>Address</th><td><input class="form-control" type="text" ng-model="driver.Address"/></td></tr>
+
+                   <tr class="tablestyle">
+                  <th>Car Name</th><td><input class="form-control" type="text" ng-model="driver.carName"/></td></tr>
+                   <tr class="tablestyle">
+                  <th>Car Type</th><td><select class="form-control" ng-model="driver.carType" >
+                                     <option ng-repeat="car in carlist" ng-value="car.carType">{{car.carType}}</option>
+
+                                    </select></td></tr>
+                   <tr class="tablestyle">
+                  <th>Car Number</th><td><input class="form-control" type="text" ng-model="driver.carNumber"/></td></tr>
+                  <tr class="tablestyle">
+                <th>License No</th><td><input class="form-control" type="text" ng-model="driver.licenseNo"/></td></tr>
+                  <tr class="tablestyle">
+                  <th>Phone #</th><td><input id="nolog" class="form-control" type="text" ng-model="driver.MobileNumber"/></td></tr>
+                   <tr class="tablestyle">
+                  <th>Mail ID</th><td><input class="form-control"  type="email" id="idlog" ng-model="driver.Email"/></td></tr>
+                    <tr class="tablestyle">
+                  <th>Password</th><td><input class="form-control" id="pwdlog" type="password" ng-model="driver.Password"/></td></tr>
+                   <tr class="tablestyle">
+                  <th>Confirm Password</th><td><input class="form-control" type="password" ng-model="driver.cpwd"/></td></tr>
+                 <tr class="tablestyle"><td><button ng-click="adddriver()" class="btn btn-primary">Add</button></td>
+                      <td><button ng-click="updatedriver()" class="btn btn-primary">Update</button></td></tr>
+
+                                                   <tr>
+
+
+                            <th>City</th>
+
+                                  <th>Driver Name</th>
+                                  <th>License No</th>
+
+                                   <th>carName</th>
+                                    <th>carNumber</th>
+                                     <th>carType</th>
+                                  </tr>
+                                  <tr ng-repeat="d in driverlist">
+
+                                  <td>{{d.city}}</td>
+
+                                   <td>{{d.FirstName}}</td>
+                                    <td>{{d.licenseNo}}</td>
+
+                                      <td>{{d.carName}}</td>
+                                      <td>{{d.carNumber}}</td>
+                                      <td>{{d.carType}}</td>
+
+                                  <td><button ng-click="removedriver(d)" class="btn btn-danger">Remove</button></td>
+                                  <td><button ng-click="editdriver(d)" class="btn btn-primary">Edit</button></td>
+                                  </tr>
+
+                          </tbody>
+               </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mapping car with city -->
+
+<div class="modal fade" id="Mapping" role="dialog">
+    <div class="modal-dialog modal-lg" >
+      <!-- Modal content-->
+      <div class="modal-content" style="width:100%;    margin-left: -76%;" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Bills</h4>
+        </div>
+        <div class="modal-body"><button class="btn btn-primary btn-lg btn-block heading" ng-click="admindet()">View Bills</button>
+    <div ng-show="adminbill">
+          <table class="table">
+
+                          <tbody>
+                                <tr>
+<th class="th1">Booking ID</th>
+<th class="th1">Customer Name</th>
+<th class="th1">Pickup Loc</th>
+<th class="th1">Drop Loc</th>
+<th class="th1">Date</th>
+<th class="th1">Driver Name</th>
+<th class="th1">Car Number</th>
+<th class="th1">Amount</th>
+</tr>
+ <tr ng-repeat="farelist in adminlist">
+
+<td class="td1">{{farelist.bookingID}}</td>
+<td class="td1">{{farelist.Name}}</td>
+<td class="td1">{{farelist.pickupLoc}}</td>
+<td class="td1">{{farelist.dropLoc}}</td>
+<td class="td1">{{farelist.Date}}</td>
+<td class="td1">{{farelist.DriverName}}</td>
+<td class="td1">{{farelist.carNo}}</td>
+<td class="td1">{{farelist.Amount}}</td>
+
+</tr>
+
+                          </tbody>
+               </table>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+ <div class="modal fade" id="myModal13" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:100%;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Admin Credentials</h4>
+        </div>
+        <div class="modal-body">
+        <div id="newadmin">
+            <table class="table">
+                       <tbody>
+                         <h3>Add Admin Credentials</h3>
+                         <input placeholder="First Name" ng-model="User.FirstName" type="text" class="form-control" style="margin-top: 10px;" />
+            <input placeholder="Last Name" type="text" ng-model="User.LastName" class="form-control" />
+
+            <input placeholder="Email Address" ng-model="User.Email" type="text" class="form-control" />
+            <input placeholder="Mobile Number" ng-model="User.MobileNumber" type="text" class="form-control" />
+            <input placeholder="Password" ng-model="User.Password" type="password" class="form-control" />
+            <input placeholder="Confirm Password" type="password" class="form-control" />
+            <div style="
+    margin-left: 28%;
+    margin-bottom: 5%;
+">
+            <a href="#" class="btn btn-primary" ng-click="admin()" style="margin-top: 20px">Submit</a>
+            <a href="#/" type="button" class="btn btn-danger" ng-click="canl()" style="margin-top: 20px">Cancel</a></div>
+                       </tbody>
+               </table></div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Assign Driver -->
+<div class="modal fade" id="myModal5" role="dialog" >
+    <div class="modal-dialog modal-lg" >
+      <div class="modal-content" style="    width: 100%;
+    /* position: relative; */
+    margin-left: -88%;
+">
+        <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Pending Booking</h4>
+ </div>
+ <div class="modal-body">
+  <button class="btn btn-primary btn-lg btn-block heading" ng-click="pending()">View Pending Bookings</button>
+    <div ng-show="pend">
+     <table >
+   <tbody>
+     <tr>
+
+                            <th>Booking ID</th>
+                            <th>City</th>
+                                 <th>Name</th>
+                                  <th>From</th>
+                                   <th>To</th>
+                                   <th>Cabtype</th>
+                                    <th>Date</th>
+                                     <th>Time</th>
+                                  </tr>
+                                  <tr ng-repeat="d in bookinglist">
+
+                                  <td>{{d.bookingID}}</td>
+                                  <td id="bkcity">{{d.city}}</td>
+                                   <td>{{d.Name}}</td>
+                                    <td>{{d.pickupLoc}}</td>
+                                      <td>{{d.dropLoc}}</td>
+                                      <td id="bktype">{{d.cabType}}</td>
+                                      <td>{{d.Date}}</td>
+                                      <td>{{d.Time}}</td>
+                                      <td><button ng-click="assigncab(d)" class="btn btn-primary">Assign Driver</button><button type="button" class="close" data-dismiss="modal">&times;</button></td>
+     </tr>
+   </tbody>
+ </table>
+ </div>
+         </div>
+
+ </div>
+ </div>
+ </div>
+
+ </div>
+
+ </body>
+ </html>

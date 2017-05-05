@@ -1,0 +1,113 @@
+
+<style>
+#myMap {
+  width: auto;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2%;
+}
+th{
+      width: 27% !important;
+}
+tr {
+    border-bottom: 1px solid #000;
+}
+</style>
+
+
+    <div style="display: none;">
+     lat:<input  class="form-control" type="text" id="latitude"/>
+long:<input  class="form-control" id="longitude" type="text" /> </div>
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+  <div class="row"><span class="glyphicon glyphicon-user"> <p>Hello!!! <span class="lead" id="username"> </span></p></span>
+                         <a ng-click="Logout()" style="    float: right;
+    margin-top: 1%;color: #222;"><span class="glyphicon glyphicon-off"><br>Logout</span> <br/></a></div>
+    <div class="col-md-10">
+  <div id="myMap">
+</div></div>
+<div class="col-md-2">
+<button class="btn btn-primary">Driver Details</button>
+  <!-- <p class="lead">City:</p><div id="loc"></div> -->
+  <p>Phone #:<span id="pno"></span></p>
+  <p>Mail ID:<span id="mid"></span></p>
+  <p>Cab Type:<span id="car"></span></p>
+  <p>Car #:<span id="dcar"></span></p>
+  <p>Car Name:<span id="dar"></span></p>
+</div>
+</div>
+</div>
+
+    <div id="myModal" class="modal" style="width: 50%;
+margin-top: 9%;
+margin-left: 27%;">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+  <div class="modal-header">
+          <h4 class="modal-title">Booking Details</h4>
+        </div>
+
+     <div class="modal-body">
+   <table >
+     <tbody>
+       <tr>
+         <th>
+Booking ID
+         </th>
+         <td id="bid">
+
+         </td>
+       </tr>
+       <tr>
+       <tr>
+         <th>
+Customer Name
+         </th>
+         <td id="name">
+
+         </td>
+       </tr>
+       <tr>
+
+         <th>
+Contact Phone
+         </th>
+         <td id="no">
+         </td>
+       </tr>
+        <tr>
+
+       <tr>
+         <th>
+PickUp Location
+         </th>
+         <td id="pick">
+
+         </td>
+       </tr>
+       <tr>
+         <th>
+Drop Location
+         </th>
+         <td id="Drop">
+
+         </td>
+       </tr>
+       <tr>
+         <th>
+Amount in ₹
+         </th>
+         <td id="amt"></td>
+       </tr>
+     </tbody>
+   </table>
+   </div>
+   <div class="modal-footer">
+          <button type="button" ng-click="accept()" class="btn btn-success" >Accept</button>
+        </div>
+  </div>
+
+</div>
